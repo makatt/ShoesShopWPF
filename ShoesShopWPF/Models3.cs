@@ -15,9 +15,6 @@ namespace ShoesShopWPF
         public static User Instance { get; set; } = null;
     }
 
-
-
-
     public class Product
     {
         public string Article { get; set; }
@@ -61,24 +58,5 @@ namespace ShoesShopWPF
             }
         }
 
-       
-
     }
-
-    public class ProductEditData
-    {
-        public string Article { get; set; } = "";
-        public string Name { get; set; } = "";
-        public object CategoryId { get; set; }
-        public object ManufacturerId { get; set; }
-        public object SupplierId { get; set; }
-        public decimal Price { get; set; }
-        public int Discount { get; set; }
-        public int Stock { get; set; }
-        public string Unit { get; set; } = "шт";
-        public string Description { get; set; }
-        public string Photo { get; set; }
-    }
-
-
 }

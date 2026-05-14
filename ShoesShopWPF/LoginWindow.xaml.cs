@@ -1,5 +1,4 @@
-﻿using Npgsql;
-using System.Windows;
+﻿using System.Windows;
 
 namespace ShoesShopWPF
 {
@@ -12,45 +11,29 @@ namespace ShoesShopWPF
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string connStr = "host=localhost;port=5432;username=postgres;password=navatak_21;database=postgres";
+            string login = txtLogin.Text.Trim();
+            string password = txtPassword.Password;
 
-            using (var conn = new NpgsqlConnection(connStr))
+            // Проверка на пустые поля
+            if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
             {
-                conn.Open();
-                string query = @"
-                    SELECT u.userid, r.rolename, u.username, u.userpatronymic 
-                    FROM ""OBYV"".""User"" u 
-                    JOIN ""OBYV"".""role"" r ON u.userrole = r.roleid 
-                    WHERE u.userlogin = @login AND u.userpassword = @pass";
+                MessageBox.Show("Введите логин и пароль!", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-                using (var cmd = new NpgsqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("login", txtLogin.Text.Trim());
-                    cmd.Parameters.AddWithValue("pass", txtPassword.Password);
+            // Авторизация через DBHelper
+            User user = DBHelper.Authenticate(login, password);
 
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            string fullName = reader.GetString(2);
-                            if (!reader.IsDBNull(3)) fullName += " " + reader.GetString(3);
-
-                            CurrentUser.Instance = new User
-                            {
-                                Id = reader.GetInt32(0),
-                                Role = reader.GetString(1),
-                                FullName = fullName.Trim()
-                            };
-
-                            OpenMainWindow();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Неверный логин или пароль!", "Ошибка",
-                                MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-                    }
-                }
+            if (user != null)
+            {
+                CurrentUser.Instance = user;
+                OpenMainWindow();
+            }
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль!", "Ошибка авторизации",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -62,6 +45,7 @@ namespace ShoesShopWPF
                 Role = "Гость",
                 FullName = "Гость"
             };
+
             OpenMainWindow();
         }
 

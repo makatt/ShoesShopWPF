@@ -57,7 +57,8 @@
         </WrapPanel>
 
         <!-- Товары -->
-        <ListBox x:Name="ProductsList" Grid.Row="2" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ProductsList_MouseDoubleClick">
+        <ListBox x:Name="ProductsList" Grid.Row="2" HorizontalContentAlignment="Stretch" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ProductsList_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Background="{Binding CardBackground}" 

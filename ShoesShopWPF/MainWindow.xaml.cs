@@ -209,7 +209,7 @@ namespace ShoesShopWPF
             }
         }
 
-        // ==================== Фильтры ====================
+        //  Фильтры 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             LoadProducts(txtSearch.Text.Trim());
@@ -235,7 +235,7 @@ namespace ShoesShopWPF
             LoadProducts();
         }
 
-        // ==================== Админ панель ====================
+        //  Админ панель 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (!CanOpenEditWindow()) return;

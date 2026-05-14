@@ -123,8 +123,7 @@ namespace ShoesShopWPF
 
             if (ofd.ShowDialog() == true)
             {
-                try
-                {
+                
                     string ext = Path.GetExtension(ofd.FileName).ToLower();
                     string newFileName = txtArticle.Text.Trim() + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ext;
 
@@ -135,11 +134,7 @@ namespace ShoesShopWPF
 
                     currentPhotoFileName = newFileName;
                     imgPhoto.Source = new BitmapImage(new Uri(targetPath));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при загрузке фото:\n" + ex.Message);
-                }
+                
             }
         }
 
@@ -147,7 +142,7 @@ namespace ShoesShopWPF
         {
             if (string.IsNullOrWhiteSpace(txtArticle.Text) || string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Артикул и Название — обязательные поля!");
+                MessageBox.Show("Артикул и Название обязательные поля!");
                 return;
             }
 

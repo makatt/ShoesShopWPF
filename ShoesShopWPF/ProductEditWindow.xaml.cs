@@ -33,7 +33,7 @@ namespace ShoesShopWPF
             LoadCombo(cmbManufacturer, "manufacturer", "manufacturerid", "manufacturername");
             LoadCombo(cmbSupplier, "supplier", "supplierid", "suppliername");
 
-            // Исправлено: WPF не поддерживает AddRange напрямую
+            
             cmbUnit.Items.Add("шт");
             cmbUnit.Items.Add("пара");
             cmbUnit.Items.Add("коробка");
